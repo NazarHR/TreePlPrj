@@ -1,0 +1,21 @@
+﻿<Window x:Class="TreePlPrj.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="clr-namespace:TreePlPrj"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Name="mainWindow">
+    <Canvas Name="MainBoard" 
+            PreviewMouseMove="MainBoard_PreviewMouseMove" 
+            MouseLeftButtonUp="MainBoard_MouseLeftButtonUp"
+            Background="DarkSlateGray">
+        <Canvas.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header ="Create Goal" Click="Create_Goal_Click"/>
+            </ContextMenu>
+        </Canvas.ContextMenu>
+    </Canvas>
+
+</Window>
