@@ -37,13 +37,12 @@ namespace TreePlPrj
         private void CreateNewGoalTree_Click(object sender, RoutedEventArgs e)
         {
             goalControl.goalName.Text = this.goalNamePreview.Text;
-            goalControl.goalDescription.Text = this.goalDescriptionPreview.Text;
+            goalControl.goalProgress.Text = this.goalDescriptionPreview.Text;
             foreach (var subgoal in SubgoalPreview.Children)
             {
                 TextBox subgoalTextHolder= subgoal as TextBox;
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = subgoalTextHolder.Text;
-                goalControl.addSubgoal(textBlock);
+                SingleGoalRow goalRow = new SingleGoalRow(subgoalTextHolder.Text);
+                goalControl.addSubgoal(goalRow);
             }
             this.Close();
         }

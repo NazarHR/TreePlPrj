@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Projects\C#\TreePlPrj\obj\Debug\
+D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\
 TreePlPrj
 none
 false
 DEBUG;TRACE
-D:\Projects\C#\TreePlPrj\App.xaml
-3-1781546094
+D:\Projects\C#\TreePlPrj\TreePlPrj\App.xaml
+81358629125
 
-8720420714
-13-1505183044
-GoalCreator.xaml;MainWindow.xaml;GoalControl.xaml;
+191875951586
+15-431916856
+Connector.xaml;GoalCreator.xaml;MainWindow.xaml;GoalControl.xaml;Resizer.xaml;styles\ContextMenu.xaml;styles\Scroll.xaml;SingleGoalRow.xaml;
 
 False
 

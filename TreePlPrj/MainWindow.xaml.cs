@@ -1,17 +1,22 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
+using System.Windows.Markup;
+using System.Text;
+using System.Xml;
+using System.Linq;
+using System.Net.Http.Headers;
 
 namespace TreePlPrj
 {
@@ -20,50 +25,104 @@ namespace TreePlPrj
     /// </summary>
     public partial class MainWindow : Window
     {
-        UIElement dragObject = null;
-        Point offset;
         public MainWindow()
         {
             InitializeComponent();
-            //GoalControl uc = new GoalControl();
-            //Add_Control(uc);
-        }
-        private void MainBoard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.dragObject = sender as UIElement;
-            this.offset = e.GetPosition(this.MainBoard);
-            this.offset.Y -= Canvas.GetTop(this.dragObject);
-            this.offset.X -= Canvas.GetLeft(this.dragObject);
-            this.MainBoard.CaptureMouse();
-        }
-        private void MainBoard_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            if (this.dragObject == null) return;
-            var position = e.GetPosition(sender as UIElement);
-            Canvas.SetTop(this.dragObject, position.Y - this.offset.Y);
-            Canvas.SetLeft(this.dragObject, position.X - this.offset.X);
         }
 
-        private void MainBoard_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void mainWindow_Closing(object sender, CancelEventArgs e)
         {
-            this.dragObject = null;
-            this.MainBoard.ReleaseMouseCapture();
-        }
-        public void Add_Control(UIElement control)
-        {
-            Canvas.SetTop(control, 20);
-            Canvas.SetLeft(control, 20);
-            control.MouseLeftButtonDown += MainBoard_MouseLeftButtonDown;
-            MainBoard.Children.Add(control);
+            canvaScroller.EndThread();
         }
 
-        private void Create_Goal_Click(object sender, RoutedEventArgs e)
+        private void New_Click(object sender, RoutedEventArgs e)
         {
-            GoalCreator goalCreator = new GoalCreator();
-            goalCreator.ShowDialog();
-            GoalControl gc = goalCreator.getBuiltGoal();
-            if(gc !=null)
-                Add_Control(gc);
+            Properties.Settings.Default.CurrentFIle = null;
+            Properties.Settings.Default.Save();
+            mainBoard.Clear();
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openPlan = new OpenFileDialog();
+            openPlan.Filter = "Tree Plan Files Files (*.plan)|*.plan";
+            openPlan.DefaultExt = "plan";
+            if ((bool)openPlan.ShowDialog())
+            {
+                string openedCanva = File.ReadAllText(openPlan.FileName);
+                StringReader stringReader = new StringReader(openedCanva);
+                XmlReader xmlReader = XmlReader.Create(stringReader);
+                CanvaScroller readedScroller = (CanvaScroller)XamlReader.Load(xmlReader);
+            }
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog savePlan = new SaveFileDialog();
+            savePlan.Filter = "Tree Plan Files Files (*.plan)|*.plan";
+            savePlan.DefaultExt = "plan";
+
+            if ((bool)savePlan.ShowDialog())
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(GoalControl));
+                TextWriter writer = new StreamWriter(savePlan.FileName);
+                ser.Serialize(writer, mainBoard.Children[0]);
+                writer.Close();
+            }
+        }
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void ChangeBackground_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem backgoundChanger = sender as MenuItem;
+            string changerName = (string)backgoundChanger.Header;
+
+            switch (changerName)
+            {
+                case "Gray":
+                    Properties.Settings.Default.BackgoundPath = "backgrounds/gray.jpg";
+                    break;
+                case "Stardust":
+                    Properties.Settings.Default.BackgoundPath = "backgrounds/stardust.png";
+                    break;
+                case "Motley":
+                    Properties.Settings.Default.BackgoundPath = "backgrounds/motley.png";
+                    break;
+                case "Green":
+                    Properties.Settings.Default.BackgoundPath = "backgrounds/green.jpg";
+                    break;
+                default:
+                    string path;
+                    if (SelectBackground(out path))
+                        Properties.Settings.Default.BackgoundPath = path;
+                    break;
+
+            }
+            Properties.Settings.Default.Save();
+        }
+        private bool SelectBackground(out string backgroundPath)
+        {
+            backgroundPath = null;
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
+            fileDialog.Title = "Select background";
+            if((bool)fileDialog.ShowDialog())
+            {
+                backgroundPath = fileDialog.FileName;
+                return true;
+            }
+            return false;
+            
+        }
+        private void Save()
+        {
+
         }
     }
 }

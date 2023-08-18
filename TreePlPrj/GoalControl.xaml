@@ -1,36 +1,87 @@
-﻿<UserControl x:Class="TreePlPrj.GoalControl"
+﻿<UserControl xmlns:TreePlPrj="clr-namespace:TreePlPrj"  
+             x:Class="TreePlPrj.GoalControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TreePlPrj"
-             mc:Ignorable="d" 
-             Background="White" Width="300" Height="390"
-             >
-    <UserControl.Resources>
-        <!-- Doesnt work ( -->
-        <ContextMenu x:Key="contextMenu">
-            <MenuItem Header="Edit"
-                      Click="Edit_OnClick"
-                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}"/>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             x:Name="data"
+             Height="200" 
+             Width="150" 
+             MinHeight="95"
+             MinWidth="110"
+             Background="Transparent" 
+             BorderThickness="1"
+             UseLayoutRounding="True"
+             IsHitTestVisible="True"
+             Focusable="True"
+             MouseDown="Goal_MouseDown"
+             MouseRightButtonUp="Goal_MouseRightButtonUp"
+             RequestBringIntoView="Goal_RequestBringIntoView">
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Delete" Click="Delete_Click"/>
+            <ContextMenu.Resources>
+                <ResourceDictionary Source="styles/ContextMenu.xaml"/>
+            </ContextMenu.Resources>
         </ContextMenu>
-    </UserControl.Resources>
-    <ContentControl>
-        
-        <Grid>
+    </UserControl.ContextMenu>
+    <ContentControl RenderTransformOrigin="0.5,0.5">
+        <Border Background="White" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="8">
+        <Grid RenderTransformOrigin="0.498,0.5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="26*"/>
-                <RowDefinition Height="26*"/>
-                <RowDefinition Height="25*"/>
-                <RowDefinition/>
+                <RowDefinition Height="40*" MinHeight="20"/>
+                <RowDefinition Height="29*" MinHeight="15"/>
+                <RowDefinition Height="229*" MinHeight="55"/>
             </Grid.RowDefinitions>
-            <TextBlock Name="goalName" IsHitTestVisible="False" Grid.Row="0" TextAlignment="Center">
-                Name sample text
-            </TextBlock>
-            <TextBlock Name="goalDescription" Grid.Row="1">
-                Description sample text
-            </TextBlock>
-            <StackPanel Grid.Row="2" Orientation="Vertical" Name="TasksList"/>
-        </Grid>
+            <TextBlock x:Name="goalName" 
+                       VerticalAlignment="Center" 
+                       TextAlignment="Center" 
+                       FontSize="16">
+                <Run Text="Name sample text"/></TextBlock>
+            <ProgressBar x:Name="goalProgressBar" Grid.Row="1"/>
+            <TextBlock x:Name="goalProgress" 
+                       Grid.Row="1" 
+                       VerticalAlignment="Center" 
+                       TextAlignment="Center"
+                       FontSize="14">
+                <Run Text="0/10"/></TextBlock>
+            <ScrollViewer Grid.Row="2" >
+                <StackPanel Margin="5,10,10,0" Orientation="Vertical" x:Name="TasksList" />
+                <ScrollViewer.Resources>
+                    <ResourceDictionary Source="styles/Scroll.xaml"></ResourceDictionary>
+                </ScrollViewer.Resources>
+            </ScrollViewer>
+            <TreePlPrj:Resizer x:Name="resizeBox" Grid.RowSpan="3" Visibility="Visible" />
+            <TreePlPrj:Connector x:Name="Right"
+                                 Margin="0,0,-5,0" 
+                                 RenderTransformOrigin="-12.842,0.483" 
+                                 HorizontalAlignment="Right" 
+                                 Grid.RowSpan="3" 
+                                 Width="8"
+                                 Orientation="Right"/>
+            <TreePlPrj:Connector Margin="-5,0,0,0" 
+                                 RenderTransformOrigin="-12.842,0.483" 
+                                 HorizontalAlignment="Left" 
+                                 VerticalAlignment="Center"
+                                 Grid.RowSpan="3" 
+                                 Width="8"
+                                 Orientation="Left"/>
+            <TreePlPrj:Connector Margin="0,-5,0,0"
+                                 Grid.RowSpan="3"
+                                 RenderTransformOrigin="-12.842,0.483" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Top"
+                                 Height="8"  
+                                 Width="8"
+                                 Orientation="Top"/>
+            <TreePlPrj:Connector 
+                                Margin="0,0,0,-5" 
+                                RenderTransformOrigin="-12.842,0.483" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Bottom" 
+                                Grid.RowSpan="3" 
+                                Height="8" 
+                                Width="8"
+                                Orientation="Bottom"/>
+            </Grid>
+        </Border>
     </ContentControl>
 </UserControl>

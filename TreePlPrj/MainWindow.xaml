@@ -4,18 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:s="clr-namespace:TreePlPrj"
+        xmlns:properties="clr-namespace:TreePlPrj.Properties"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        Name="mainWindow">
-    <Canvas Name="MainBoard" 
-            PreviewMouseMove="MainBoard_PreviewMouseMove" 
-            MouseLeftButtonUp="MainBoard_MouseLeftButtonUp"
-            Background="DarkSlateGray">
-        <Canvas.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header ="Create Goal" Click="Create_Goal_Click"/>
-            </ContextMenu>
-        </Canvas.ContextMenu>
-    </Canvas>
-
+        Title="MainWindow" 
+        Name="mainWindow"
+        Closing="mainWindow_Closing"
+        Focusable="False" 
+        d:Height="250" d:Width="300" >
+    <DockPanel x:Name="main_panel">
+        <Menu x:Name="mainboard_menu" DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New" Click="New_Click"></MenuItem>
+                <MenuItem Header="Open" Click="Open_Click"></MenuItem>
+                <MenuItem Header="Save" Click="Save_Click"></MenuItem>
+                <MenuItem Header="Save as..." Click="SaveAs_Click"></MenuItem>
+                <MenuItem Header="Exit" Click="Exit_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Style">
+                <MenuItem Header="Background">
+                    <MenuItem Header="Gray" Click="ChangeBackground_Click"/>
+                    <MenuItem Header="Stardust" Click="ChangeBackground_Click"/>
+                    <MenuItem Header="Motley" Click="ChangeBackground_Click"/>
+                    <MenuItem Header="Green" Click="ChangeBackground_Click"/>
+                    <MenuItem Header="Select custom" Click="ChangeBackground_Click"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <s:CanvaScroller x:Name="canvaScroller" 
+                      HorizontalScrollBarVisibility="Visible" 
+                      VerticalScrollBarVisibility="Visible" 
+                      Focusable="False">
+            <ScrollViewer.Resources>
+                <ResourceDictionary Source="styles/Scroll.xaml"></ResourceDictionary>
+            </ScrollViewer.Resources>
+            <s:MainBoardCanva x:Name="mainBoard" 
+                Focusable="False">
+                <Canvas.Background>
+                    <ImageBrush
+                        ImageSource="{Binding Source={x:Static properties:Settings.Default},Path=BackgoundPath}"
+                        TileMode="FlipXY"
+                        Viewport="0,0,600, 500"
+                        ViewportUnits="Absolute"
+                    />
+                </Canvas.Background>
+            </s:MainBoardCanva>
+        </s:CanvaScroller>
+    </DockPanel>
 </Window>
