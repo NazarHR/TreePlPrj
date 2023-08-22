@@ -94,6 +94,19 @@ namespace TreePlPrj
                 default: return null;
             }
         }
+        public string getHeading()
+        {
+            return goalName.Text;
+        }
+        public List<Tuple<string, bool>> getGoals()
+        {
+            List<Tuple<string, bool>> goals = new List<Tuple<string, bool>>();
+            foreach (SingleGoalRow subgoal in this.TasksList.Children)
+            {
+                goals.Add(new Tuple<string,bool>( subgoal.GoalName.Text,subgoal.Comlited));
+            }
+            return goals;
+        }
         private void Subgoal_ImDone(object sender, EventArgs e)
         {
             AmoutOfDoneTasks += 1;

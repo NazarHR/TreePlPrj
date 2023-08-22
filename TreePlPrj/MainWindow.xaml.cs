@@ -58,7 +58,7 @@ namespace TreePlPrj
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-
+            SaveManager.save(mainBoard.Children);
         }
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
@@ -73,6 +73,10 @@ namespace TreePlPrj
                 ser.Serialize(writer, mainBoard.Children[0]);
                 writer.Close();
             }
+        }
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+            SaveManager.Load();
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -124,5 +128,7 @@ namespace TreePlPrj
         {
 
         }
+
+
     }
 }

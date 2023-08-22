@@ -50,21 +50,23 @@
                 </ScrollViewer.Resources>
             </ScrollViewer>
             <TreePlPrj:Resizer x:Name="resizeBox" Grid.RowSpan="3" Visibility="Visible" />
-            <TreePlPrj:Connector x:Name="Right"
+            <TreePlPrj:Connector x:Name="RightConnector"
                                  Margin="0,0,-5,0" 
                                  RenderTransformOrigin="-12.842,0.483" 
                                  HorizontalAlignment="Right" 
                                  Grid.RowSpan="3" 
                                  Width="8"
                                  Orientation="Right"/>
-            <TreePlPrj:Connector Margin="-5,0,0,0" 
+            <TreePlPrj:Connector x:Name="LeftConnector"
+                                 Margin="-5,0,0,0" 
                                  RenderTransformOrigin="-12.842,0.483" 
                                  HorizontalAlignment="Left" 
                                  VerticalAlignment="Center"
                                  Grid.RowSpan="3" 
                                  Width="8"
                                  Orientation="Left"/>
-            <TreePlPrj:Connector Margin="0,-5,0,0"
+            <TreePlPrj:Connector x:Name="TopConnector"
+                                 Margin="0,-5,0,0"
                                  Grid.RowSpan="3"
                                  RenderTransformOrigin="-12.842,0.483" 
                                  HorizontalAlignment="Center" 
@@ -72,15 +74,15 @@
                                  Height="8"  
                                  Width="8"
                                  Orientation="Top"/>
-            <TreePlPrj:Connector 
-                                Margin="0,0,0,-5" 
-                                RenderTransformOrigin="-12.842,0.483" 
-                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Bottom" 
-                                Grid.RowSpan="3" 
-                                Height="8" 
-                                Width="8"
-                                Orientation="Bottom"/>
+            <TreePlPrj:Connector x:Name="BottomConnector"
+                                 Margin="0,0,0,-5" 
+                                 RenderTransformOrigin="-12.842,0.483" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Bottom" 
+                                 Grid.RowSpan="3" 
+                                 Height="8" 
+                                 Width="8"
+                                 Orientation="Bottom"/>
             </Grid>
         </Border>
     </ContentControl>

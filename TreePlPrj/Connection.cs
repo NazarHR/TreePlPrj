@@ -103,7 +103,14 @@ namespace TreePlPrj
                 End = sink.Position;
             }
         }
-
+        public Connector getStart()
+        {
+            return start;
+        }
+        public Connector getSink() 
+        {
+            return sink;
+        }
         public GoalControl GetStartGoal()
         {
             return start.ParentGoal;
