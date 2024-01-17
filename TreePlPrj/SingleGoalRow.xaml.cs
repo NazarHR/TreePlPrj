@@ -53,6 +53,10 @@ namespace TreePlPrj
                 onImUndone();
             }
         }
+        public void setDone()
+        {
+            OnImDone();
+        }
         protected virtual void OnImDone()
         {
             complited = true;

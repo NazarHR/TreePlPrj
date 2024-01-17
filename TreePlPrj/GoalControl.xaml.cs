@@ -101,9 +101,16 @@ namespace TreePlPrj
         public List<Tuple<string, bool>> getGoals()
         {
             List<Tuple<string, bool>> goals = new List<Tuple<string, bool>>();
-            foreach (SingleGoalRow subgoal in this.TasksList.Children)
+            foreach (var subgoal in this.TasksList.Children)
             {
-                goals.Add(new Tuple<string,bool>( subgoal.GoalName.Text,subgoal.Comlited));
+                Console.WriteLine(  $"{subgoal.GetType().Name}");
+                //if (!subgoal.GetType().IsSubclassOf(typeof(SingleGoalRow)))
+                if(!(subgoal is ConnectedGoalRow))
+                {
+                    SingleGoalRow sg =subgoal as SingleGoalRow;
+                    Console.WriteLine(sg.GoalName.Text);
+                    goals.Add(new Tuple<string, bool>(sg.GoalName.Text, sg.Comlited));
+                } 
             }
             return goals;
         }

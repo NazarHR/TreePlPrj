@@ -58,7 +58,7 @@ namespace TreePlPrj
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            SaveManager.save(mainBoard.Children);
+            //SaveManager.save(mainBoard.Children);
         }
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
@@ -68,15 +68,25 @@ namespace TreePlPrj
 
             if ((bool)savePlan.ShowDialog())
             {
-                XmlSerializer ser = new XmlSerializer(typeof(GoalControl));
-                TextWriter writer = new StreamWriter(savePlan.FileName);
-                ser.Serialize(writer, mainBoard.Children[0]);
-                writer.Close();
+                SaveManager.save(mainBoard.Children, savePlan.FileName);
             }
         }
         private void Load_Click(object sender, RoutedEventArgs e)
         {
-            SaveManager.Load();
+            string path = " C:\\Users\\nazar\\Desktop\\plan.plan";
+            List<GoalControl> loadedGoals;
+            List<Connection> loadedConnections;
+            SaveManager.Load(path, out loadedGoals, out loadedConnections);
+            foreach (GoalControl goalControl in loadedGoals)
+            {
+                mainBoard.Add_Control(goalControl);
+            }
+            foreach(Connection connection in loadedConnections)
+            {
+                mainBoard.Children.Add(connection);
+            }
+
+
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {

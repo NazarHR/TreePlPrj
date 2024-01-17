@@ -69,12 +69,17 @@ namespace TreePlPrj
         {
             Canvas.SetTop(control, position.Y);
             Canvas.SetLeft(control, position.X);
+            Add_Control(control);
+        }
+        public void Add_Control(GoalControl control)
+        {
             Canvas.SetZIndex(control, 1);
             control.MouseLeftButtonDown += MainBoard_MouseLeftButtonDown;
             control.GotFocus += Control_GotFocus;
             control.ImDeleted += Control_Imdeleted;
             this.Children.Add(control);
         }
+
         private void Control_Imdeleted(object sender, EventArgs e)
         {
             UIElement deletedGoal = sender as UIElement;

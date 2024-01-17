@@ -52,5 +52,25 @@ namespace TreePlPrj
                 return null;
             return goalControl;
         }
+        public static GoalControl CreateGoalFromParams(string heading, List<Tuple<string, bool>> subgoals, double top = 0, double left = 0, double width = 150, double height = 200)
+        {
+            GoalControl goalControl = new GoalControl();
+            goalControl.goalName.Text=heading;
+            Canvas.SetTop(goalControl, top);
+            Canvas.SetLeft(goalControl, left);
+            goalControl.Width = width;
+            goalControl.Height = height;
+            foreach (var subgoal in subgoals)
+            {
+                SingleGoalRow singleGoalRow = new SingleGoalRow(subgoal.Item1);
+                goalControl.addSubgoal(singleGoalRow);
+                if(subgoal.Item2)
+                {
+                    singleGoalRow.setDone();
+                }
+            }
+            
+            return goalControl;
+        }
     }
 }

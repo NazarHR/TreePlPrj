@@ -42,6 +42,5 @@ D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\Resizer.g.cs
 D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\Resizer.baml
 D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\Connector.g.cs
 D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\Connector.baml
-D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\TreePlPrj.csproj.SuggestedBindingRedirects.cache
 D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\styles\ContextMenu.baml
 D:\Projects\C#\TreePlPrj\TreePlPrj\obj\Debug\styles\Scroll.baml
