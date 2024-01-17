@@ -146,24 +146,17 @@ namespace TreePlPrj
         }
         public static void Load(string path, out List<GoalControl> loadedGoalControls, out List<Connection> loadedConnnections)
         {
-            path = " C:\\Users\\nazar\\Desktop\\plan.plan";
             GoalsConnectionsSaveData loadedData = LoadFromFile(path);
             List<GoalControl>unpackedGoalControls;
             List<Connection> unpackedConnnections;
             Unpack(loadedData, out unpackedGoalControls, out unpackedConnnections);
             loadedGoalControls=unpackedGoalControls;
             loadedConnnections=unpackedConnnections;
-            //Console.WriteLine( "here");
-            //printPakedGoals(loadedData.goalList);
-            //PrintPakedConnections(loadedData.connectionsList);
         }
         private static void Unpack(GoalsConnectionsSaveData packedData, out List<GoalControl> unpackedGoalControls, out List<Connection> unpackedConnection )
         {
-            //Unpacking Goals
             unpackedGoalControls = UnpackGoals(packedData.goalList);
-            //unpacking Connetions
             unpackedConnection = UnpackConnetions(packedData.connectionsList, unpackedGoalControls);
-
         }
         private static List<GoalControl> UnpackGoals(List<PackedGoal> packedGoals)
         {

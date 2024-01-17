@@ -74,6 +74,18 @@ namespace TreePlPrj
         private void Load_Click(object sender, RoutedEventArgs e)
         {
             string path = " C:\\Users\\nazar\\Desktop\\plan.plan";
+            OpenFileDialog openPlan = new OpenFileDialog();
+            openPlan.Filter = "Tree Plan Files Files (*.plan)|*.plan";
+            openPlan.DefaultExt = "plan";
+            if ((bool)openPlan.ShowDialog())
+            {
+                mainBoard.Clear();
+                path = openPlan.FileName;
+                Load(path);
+            }
+        }
+        private void Load(string path)
+        {
             List<GoalControl> loadedGoals;
             List<Connection> loadedConnections;
             SaveManager.Load(path, out loadedGoals, out loadedConnections);
@@ -81,12 +93,10 @@ namespace TreePlPrj
             {
                 mainBoard.Add_Control(goalControl);
             }
-            foreach(Connection connection in loadedConnections)
+            foreach (Connection connection in loadedConnections)
             {
                 mainBoard.Children.Add(connection);
             }
-
-
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
