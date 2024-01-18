@@ -28,37 +28,27 @@ namespace TreePlPrj
         public MainWindow()
         {
             InitializeComponent();
+            if(Properties.Settings.Default.CurrentFile!="")
+                Load(Properties.Settings.Default.CurrentFile);
         }
 
         private void mainWindow_Closing(object sender, CancelEventArgs e)
         {
+            AskIfWantToSaveProgress();
             canvaScroller.EndThread();
         }
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.CurrentFIle = null;
+            AskIfWantToSaveProgress();
+            Properties.Settings.Default.CurrentFile = "";
             Properties.Settings.Default.Save();
             mainBoard.Clear();
         }
 
-        private void Open_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openPlan = new OpenFileDialog();
-            openPlan.Filter = "Tree Plan Files Files (*.plan)|*.plan";
-            openPlan.DefaultExt = "plan";
-            if ((bool)openPlan.ShowDialog())
-            {
-                string openedCanva = File.ReadAllText(openPlan.FileName);
-                StringReader stringReader = new StringReader(openedCanva);
-                XmlReader xmlReader = XmlReader.Create(stringReader);
-                CanvaScroller readedScroller = (CanvaScroller)XamlReader.Load(xmlReader);
-            }
-        }
-
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            //SaveManager.save(mainBoard.Children);
+            Save(Properties.Settings.Default.CurrentFile);
         }
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
@@ -68,20 +58,26 @@ namespace TreePlPrj
 
             if ((bool)savePlan.ShowDialog())
             {
-                SaveManager.save(mainBoard.Children, savePlan.FileName);
+                Save(savePlan.FileName);
             }
         }
-        private void Load_Click(object sender, RoutedEventArgs e)
+        private void Save(string path)
         {
-            string path = " C:\\Users\\nazar\\Desktop\\plan.plan";
+            SaveManager.save(mainBoard.Children, path);
+        }
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            AskIfWantToSaveProgress();
             OpenFileDialog openPlan = new OpenFileDialog();
             openPlan.Filter = "Tree Plan Files Files (*.plan)|*.plan";
             openPlan.DefaultExt = "plan";
             if ((bool)openPlan.ShowDialog())
             {
                 mainBoard.Clear();
-                path = openPlan.FileName;
+                string path = openPlan.FileName;
                 Load(path);
+                Properties.Settings.Default.CurrentFile = path;
+                Properties.Settings.Default.Save();
             }
         }
         private void Load(string path)
@@ -101,6 +97,14 @@ namespace TreePlPrj
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        private void AskIfWantToSaveProgress()
+        {
+            if (Properties.Settings.Default.CurrentFile == "") return;
+            if(MessageBox.Show("Do you want tot save changes before continuing?", "Save", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
+            {
+                Save(Properties.Settings.Default.CurrentFile);
+            }
         }
         private void ChangeBackground_Click(object sender, RoutedEventArgs e)
         {
@@ -142,13 +146,6 @@ namespace TreePlPrj
                 return true;
             }
             return false;
-            
         }
-        private void Save()
-        {
-
-        }
-
-
     }
 }

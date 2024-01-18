@@ -5,7 +5,7 @@
     <Setting Name="BackgoundPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">backgrounds/motley.png</Value>
     </Setting>
-    <Setting Name="CurrentFIle" Type="System.String" Scope="User">
+    <Setting Name="CurrentFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
