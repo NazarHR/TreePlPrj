@@ -75,6 +75,7 @@ namespace TreePlPrj
             {
                 mainBoard.Clear();
                 string path = openPlan.FileName;
+                if (!File.Exists(path)) return;
                 Load(path);
                 Properties.Settings.Default.CurrentFile = path;
                 Properties.Settings.Default.Save();
@@ -82,6 +83,7 @@ namespace TreePlPrj
         }
         private void Load(string path)
         {
+            if (!File.Exists(path)) return;
             List<GoalControl> loadedGoals;
             List<Connection> loadedConnections;
             SaveManager.Load(path, out loadedGoals, out loadedConnections);
@@ -100,7 +102,7 @@ namespace TreePlPrj
         }
         private void AskIfWantToSaveProgress()
         {
-            if (Properties.Settings.Default.CurrentFile == "") return;
+            if (Properties.Settings.Default.CurrentFile == "" || mainBoard.Children.Count==0) return;
             if(MessageBox.Show("Do you want tot save changes before continuing?", "Save", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
                 Save(Properties.Settings.Default.CurrentFile);

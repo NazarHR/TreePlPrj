@@ -89,6 +89,8 @@
     </Compile>
     <Compile Include="ResizeThumb.cs" />
     <Compile Include="SaveManager.cs" />
+    <Compile Include="SaveManagerLoading.cs" />
+    <Compile Include="SaveManagerSaving.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SingleGoalRow.xaml.cs">
       <DependentUpon>SingleGoalRow.xaml</DependentUpon>
