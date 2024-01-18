@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreePlPrj"
         mc:Ignorable="d"
-        Title="GoalCreator" Height="450" Width="372.42">
+        Title="Create Goal" Height="450" Width="372.42">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="31*"></RowDefinition>

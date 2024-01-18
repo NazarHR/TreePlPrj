@@ -6,7 +6,7 @@
         xmlns:s="clr-namespace:TreePlPrj"
         xmlns:properties="clr-namespace:TreePlPrj.Properties"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Plan Tree Builder" 
         Name="mainWindow"
         Closing="mainWindow_Closing"
         Focusable="False" 
