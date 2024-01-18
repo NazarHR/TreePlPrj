@@ -180,9 +180,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="motley.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="backgrounds\stardust.png" />
   </ItemGroup>
   <ItemGroup>

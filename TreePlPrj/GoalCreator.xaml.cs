@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace TreePlPrj
 {
@@ -20,28 +22,29 @@ namespace TreePlPrj
     public partial class GoalCreator : Window
     {
         private GoalControl goalControl;
-        private List<UIElement> tsklst;
+        private TextBoxWithPlaceholder goalNamePreview = new TextBoxWithPlaceholder("Enter heading here...");
         public GoalCreator()
         {
             goalControl = new GoalControl();
-            tsklst = new List<UIElement>();
             InitializeComponent();
+            HeadingPlace.Children.Add(goalNamePreview);
         }
         private void AddNewSubgoalButton_Click(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = new TextBox();
-            textBox.Text = "im a goal";
+            TextBoxWithPlaceholder textBox = new TextBoxWithPlaceholder("Enter goal here...");
             SubgoalPreview.Children.Add(textBox);
         }
-
+        private void RemoveLastSubgoalButton_Click(object sender, RoutedEventArgs e)
+        {
+            SubgoalPreview.Children.RemoveAt(SubgoalPreview.Children.Count - 1);
+        }
         private void CreateNewGoalTree_Click(object sender, RoutedEventArgs e)
         {
             goalControl.goalName.Text = this.goalNamePreview.Text;
-            goalControl.goalProgress.Text = this.goalDescriptionPreview.Text;
-            foreach (var subgoal in SubgoalPreview.Children)
+            foreach (TextBoxWithPlaceholder subgoal in SubgoalPreview.Children)
             {
-                TextBox subgoalTextHolder= subgoal as TextBox;
-                SingleGoalRow goalRow = new SingleGoalRow(subgoalTextHolder.Text);
+                string subgoalTextHolder = subgoal.Text;
+                SingleGoalRow goalRow = new SingleGoalRow(subgoalTextHolder);
                 goalControl.addSubgoal(goalRow);
             }
             this.Close();
@@ -69,8 +72,49 @@ namespace TreePlPrj
                     singleGoalRow.setDone();
                 }
             }
-            
             return goalControl;
+        }
+        public class TextBoxWithPlaceholder: TextBox
+        {
+            private bool isPlaceholder = true;
+            private string placeholderText;
+
+            public new string Text
+            {
+                get => isPlaceholder ? string.Empty : base.Text;
+                set => base.Text = value;
+            }
+
+            public TextBoxWithPlaceholder(string text)
+            {
+                this.SetResourceReference(StyleProperty, typeof(TextBox));
+                this.GotFocus += RemoveText;
+                this.LostFocus += AddText;
+                this.placeholderText = text; 
+                this.Text = placeholderText;
+            }
+            
+            public void RemoveText(object sender, EventArgs e)
+            {
+                if (isPlaceholder)
+                {
+                    this.Text = "";
+                    isPlaceholder = false;
+                }
+            }
+            public void AddText(object sender, EventArgs e)
+            {
+                if (this.Text == "")
+                {
+                    this.Text = placeholderText;
+                    isPlaceholder = true;
+                }
+            }
+        }
+
+        private void CancleNewGoaldTreeCreation_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

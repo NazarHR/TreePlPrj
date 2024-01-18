@@ -182,7 +182,7 @@ namespace TreePlPrj
     {
         public event Action<SingleGoalRow> ImDeleted;
         GoalControl connectedGoal;
-        public ConnectedGoalRow(Connection goalConnection) : base()
+        public ConnectedGoalRow(Connection goalConnection)
         {
             connectedGoal = goalConnection.GetStartGoal();
             setGoalText(connectedGoal.goalName.Text);

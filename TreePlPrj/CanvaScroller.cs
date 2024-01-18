@@ -30,7 +30,7 @@ namespace TreePlPrj
             }
         }
 
-        public CanvaScroller() : base() {
+        public CanvaScroller() {
             
             InitializeIvents();
             StartSideScrollingThread();

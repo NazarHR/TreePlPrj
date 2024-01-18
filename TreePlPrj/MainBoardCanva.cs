@@ -18,7 +18,7 @@ namespace TreePlPrj
         public UIElement dragObject = null;
         public Connection currentConnection = null;
  
-        public MainBoardCanva():base() {
+        public MainBoardCanva() {
             MouseLeftButtonUp += MainBoard_MouseLeftButtonDown;
             PreviewMouseMove += MainBoard_PreviewMouseMove;
            // MouseDown += MainBoard_MouseDown;
